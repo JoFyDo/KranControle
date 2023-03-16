@@ -60,30 +60,28 @@ public class Controle extends Automat {
 
         int returnvalue = 0;
 
-        int deinEnum = 0;
-
         if(xTurns < xRotations){
-            returnvalue = returnvalue | deinEnum;
+            returnvalue = returnvalue | Kran.Kran_Bit.X_MOTOR_LINKS.b;
         }
 
         else if(xTurns > xRotations){
-            returnvalue = returnvalue | deinEnum;
+            returnvalue = returnvalue | Kran.Kran_Bit.X_MOTOR_RECHTS.b;
         }
 
         if(yTurns < yRotations){
-            returnvalue = returnvalue | deinEnum;
+            returnvalue = returnvalue | Kran.Kran_Bit.Y_MOTOR_ZURUECK.b;
         }
 
         else if(yTurns > yRotations){
-            returnvalue = returnvalue | deinEnum;
+            returnvalue = returnvalue | Kran.Kran_Bit.Y_MOTOR_VOR.b;
         }
 
-        if(zTurns < xRotations){
-            returnvalue = returnvalue | deinEnum;
+        if(zTurns < zRotations){
+            returnvalue = returnvalue | Kran.Kran_Bit.Z_MOTOR_RUNTER.b;
         }
 
-        else if(zTurns > xRotations){
-            returnvalue = returnvalue | deinEnum;
+        else if(zTurns > zRotations){
+            returnvalue = returnvalue | Kran.Kran_Bit.Z_MOTOR_HOCH.b;
         }
         return  returnvalue;
     }
