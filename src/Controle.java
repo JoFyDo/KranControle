@@ -21,19 +21,20 @@ public class Controle extends Automat{
         return 0;
     }
 
-    private void setZero(int input){
+    private int setZero(int input){
 
-        int xET = input>>;
-        int yET = input>>;
-        int zET = input;
+        int returnVal = 0;
+        int xET = input>>17;
+        int yET = input>>18;
+        int zET = input>>20;
 
-        if(xET){
-
-        }
-        if(yET){
+        if(xET != 1){
 
         }
-        if(zET){
+        if(yET != 1){
+
+        }
+        if(zET != 1){
 
         }
 
