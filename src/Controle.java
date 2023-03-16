@@ -1,6 +1,10 @@
-public class Controle extends Automat{
+public class Controle extends Automat {
 
     private boolean isCalibrated = false;
+
+    private int xTurns;
+    private int yTurns;
+    private int zTurns;
 
 
     /**
@@ -16,29 +20,40 @@ public class Controle extends Automat{
     @Override
     public int transition(int input) {
 
-        if(!isCalibrated)setZero(input);
+        if (!isCalibrated) setZero(input);
+
+        checkLocation(input);
 
         return 0;
     }
 
-    private int setZero(int input){
+
+    private int setZero(int input) {
 
         int returnVal = 0;
-        int xET = input>>17;
-        int yET = input>>18;
-        int zET = input>>20;
+        int xET = input >> 17;
+        int yET = input >> 18;
+        int zET = input >> 20;
 
-        if(xET != 1){
+        if (xET != 1) {
             returnVal += 0b00000000000000000000000000000000000000000000000001;
         }
-        if(yET != 1){
+        if (yET != 1) {
             returnVal += 0b00000000000000000000000000000000000000000000000000001;
         }
-        if(zET != 1){
+        if (zET != 1) {
             returnVal += 0b000000000000000000000000000000000000000000000000000001;
         }
+        return returnVal;
+    }
 
+    private void updateLocation(int input){
+        int xIni = >> ;
+        int yIni;
+        int zIni;
 
 
     }
+
+
 }
