@@ -1,5 +1,7 @@
 public class Controle extends Automat{
 
+    private boolean isCalibrated = false;
+
 
     /**
      * The constructor of the abstract class Automat
@@ -13,10 +15,29 @@ public class Controle extends Automat{
 
     @Override
     public int transition(int input) {
+
+        if(!isCalibrated)setZero(input);
+
         return 0;
     }
 
-    private void setZero(){
+    private void setZero(int input){
+
+        int xET = input>>;
+        int yET = input>>;
+        int zET = input;
+
+        if(xET){
+
+        }
+        if(yET){
+
+        }
+        if(zET){
+
+        }
+
+
 
     }
 }
