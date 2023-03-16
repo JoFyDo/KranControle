@@ -22,7 +22,7 @@ public class Controle extends Automat {
 
         if (!isCalibrated) setZero(input);
 
-        checkLocation(input);
+        updateLocation(input);
 
         return 0;
     }
@@ -30,19 +30,20 @@ public class Controle extends Automat {
 
     private int setZero(int input) {
 
+
         int returnVal = 0;
         int xET = input >> 17;
         int yET = input >> 18;
         int zET = input >> 20;
 
         if (xET != 1) {
-            returnVal += 0b00000000000000000000000000000000000000000000000001;
+            returnVal += Kran.Kran_Bit.X_MOTOR_LINKS.b;
         }
         if (yET != 1) {
-            returnVal += 0b00000000000000000000000000000000000000000000000000001;
+            returnVal += Kran.Kran_Bit.Y_MOTOR_ZURUECK.b;
         }
         if (zET != 1) {
-            returnVal += 0b000000000000000000000000000000000000000000000000000001;
+            returnVal += Kran.Kran_Bit.Z_MOTOR_HOCH.b;
         }
         return returnVal;
     }
@@ -53,6 +54,38 @@ public class Controle extends Automat {
         int zIni;
 
 
+    }
+
+    private int navigate(int xRotations, int yRotations, int zRotations){
+
+        int returnvalue = 0;
+
+        int deinEnum = 0;
+
+        if(xTurns < xRotations){
+            returnvalue = returnvalue | deinEnum;
+        }
+
+        else if(xTurns > xRotations){
+            returnvalue = returnvalue | deinEnum;
+        }
+
+        if(yTurns < yRotations){
+            returnvalue = returnvalue | deinEnum;
+        }
+
+        else if(yTurns > yRotations){
+            returnvalue = returnvalue | deinEnum;
+        }
+
+        if(zTurns < xRotations){
+            returnvalue = returnvalue | deinEnum;
+        }
+
+        else if(zTurns > xRotations){
+            returnvalue = returnvalue | deinEnum;
+        }
+        return  returnvalue;
     }
 
 

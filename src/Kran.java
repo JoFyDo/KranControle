@@ -1,12 +1,39 @@
-public enum Kran {
+public class Kran {
 
-
-
-
-    String description;
-    int 0;
-    Kran(String description, int o) {
-        this.s = de;
-        this.o = o;
+    public Kran() {
+        z =  Kran_State.Z0;
     }
+
+    public enum Kran_State {
+        Z0("Ruhezustand");
+
+        String s;
+
+        Kran_State(String s) {
+            this.s = s;
+        }
+
+    }
+
+
+    public enum Kran_Bit{
+
+        X_MOTOR_RECHTS("x Achse rechts",1),
+        X_MOTOR_LINKS("x Achse links",1),
+        Y_MOTOR_VOR("y Achse vor",1),
+        Y_MOTOR_ZURUECK("y Achse zurück",1),
+        Z_MOTOR_HOCH("z Achse hoch",1),
+        Z_MOTOR_RUNTER("y Achse runter",1);
+
+
+        String description;
+        int b;
+
+        Kran_Bit(String description, int o) {
+            this.description = description;
+            this.b = o;
+        }
+    }
+
+    private Kran_State z;
 }
