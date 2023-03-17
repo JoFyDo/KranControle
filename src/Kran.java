@@ -23,7 +23,11 @@ public class Kran {
         Y_MOTOR_VOR("y Achse vor",1),
         Y_MOTOR_ZURUECK("y Achse zurück",1),
         Z_MOTOR_HOCH("z Achse hoch",1),
-        Z_MOTOR_RUNTER("y Achse runter",1);
+        Z_MOTOR_RUNTER("y Achse runter",1),
+        X_INITIATOR("x Initiator", 1),
+        Y_INITIATOR("y Initiator", 1),
+        Z_INITIATOR("z Initiator", 1);
+
 
 
         String description;
