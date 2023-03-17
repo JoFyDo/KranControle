@@ -5,6 +5,9 @@ public class Controle extends Automat {
     private int xTurns;
     private int yTurns;
     private int zTurns;
+    private int xIniOld;
+    private int yIniOld;
+    private int zIniOld;
 
 
     /**
@@ -48,10 +51,37 @@ public class Controle extends Automat {
         return returnVal;
     }
 
-    private void updateLocation(int input){
-        int xIni = >> ;
-        int yIni;
-        int zIni;
+    private void updateLocation(int input) {
+        int xIni = 0;
+        int yIni = 0;
+        int zIni = 0;
+
+        int xMotorR = 0;
+        int xMotorL = 0;
+        int yMotorV = 0;
+        int yMotorZ = 0;
+        int zMotorH = 0;
+        int zMotorR = 0;
+
+        if (xIni != xIniOld && xMotorR == 1) {
+            xTurns++;
+        } else if (xIni != xIniOld && xMotorL == 1) {
+            xTurns--;
+        }
+        if (yIni != yIniOld && yMotorV == 1) {
+            yTurns++;
+        } else if (yIni != yIniOld && yMotorZ == 1) {
+            yTurns--;
+        }
+        if (zIni != zIniOld && zMotorH == 1) {
+            zTurns++;
+        } else if (zIni != zIniOld && zMotorR == 1) {
+            zTurns--;
+        }
+
+        xIniOld = xIni;
+        yIniOld = yIni;
+        zIniOld = zIni;
 
 
     }
