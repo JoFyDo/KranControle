@@ -20,4 +20,5 @@ Jonas:<br>
 Zustandsdiagramm: 10%<br>
 Code: 65%<br>
 Automat + Dokumentation verstehen: 1/3<br>
-Mit ihnen den Automaten repariert;)
+Mit ihnen den Automaten repariert ;)
+  
