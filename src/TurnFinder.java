@@ -41,10 +41,13 @@ public class TurnFinder extends Automat {
             System.out.println("Z Achse:" + zTurns);
         } else if (str.toUpperCase() == "X") {
             x = true;
+            move = true;
         } else if (str.toUpperCase() == "Y") {
             y = true;
+            move = true;
         } else if (str.toUpperCase() == "Z") {
             z = true;
+            move = true;
         }
 
         if (!isZero) setZero(input);
