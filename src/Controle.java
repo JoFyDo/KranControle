@@ -30,6 +30,8 @@ public class Controle extends Automat {
         return 0;
     }
 
+    // unsere Startposition ist (0|0|0). Für die x-Achse bedeutet das ganz rechts, y-Achse ganz hinten und z-Achse ganz oben
+
 
     private int setZero(int input) {
 
@@ -64,9 +66,9 @@ public class Controle extends Automat {
         int zMotorR = 0;
 
         if (xIni != xIniOld && xMotorR == 1) {
-            xTurns++;
-        } else if (xIni != xIniOld && xMotorL == 1) {
             xTurns--;
+        } else if (xIni != xIniOld && xMotorL == 1) {
+            xTurns++;
         }
         if (yIni != yIniOld && yMotorV == 1) {
             yTurns++;
@@ -74,9 +76,9 @@ public class Controle extends Automat {
             yTurns--;
         }
         if (zIni != zIniOld && zMotorH == 1) {
-            zTurns++;
-        } else if (zIni != zIniOld && zMotorR == 1) {
             zTurns--;
+        } else if (zIni != zIniOld && zMotorR == 1) {
+            zTurns++;
         }
 
         xIniOld = xIni;
