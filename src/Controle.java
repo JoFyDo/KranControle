@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 @SuppressWarnings("LanguageDetectionInspection")
 public class Controle extends Automat {
 
@@ -9,6 +12,9 @@ public class Controle extends Automat {
     private int xIniOld = 0;
     private int yIniOld = 0;
     private int zIniOld = 0;
+    private Kran kran;
+    List<Kran.Kran_State> kranArrayList;
+    private int counterList = 0;
 
 
     /**
@@ -19,16 +25,29 @@ public class Controle extends Automat {
      */
     public Controle(int inputMask, int outputMask) {
         super(inputMask, outputMask);
+        kran = new Kran();
+        kranArrayList = kran.getAllStates();
     }
 
     @Override
     public int transition(int input) {
 
-        if (!isCalibrated) setZero(input);
+        int returnValue = 0;
+        if(counterList > 4){
+            counterList = 0;
+        }
+
+        switch (kran.getZ()){
+            case Z_KALIBRIEREN -> returnValue = setZero(input);
+            case Z_AUFSAMMELN_LAGER -> returnValue = navigate(Kran.Kran_State.Z_AUFSAMMELN_LAGER.x, Kran.Kran_State.Z_AUFSAMMELN_LAGER.y, Kran.Kran_State.Z_AUFSAMMELN_LAGER.z);
+            case Z_ABSETZEN_BAND -> returnValue = navigate(Kran.Kran_State.Z_ABSETZEN_BAND.x, Kran.Kran_State.Z_ABSETZEN_BAND.y, Kran.Kran_State.Z_ABSETZEN_BAND.z);
+            case Z_AUFNEHMEN_BAND -> returnValue = navigate(Kran.Kran_State.Z_AUFNEHMEN_BAND.x, Kran.Kran_State.Z_AUFNEHMEN_BAND.y, Kran.Kran_State.Z_AUFNEHMEN_BAND.z);
+            case Z_ABSETZEN_END -> returnValue = navigate(Kran.Kran_State.Z_ABSETZEN_END.x, Kran.Kran_State.Z_ABSETZEN_END.y, Kran.Kran_State.Z_ABSETZEN_END.z);
+        }
 
         updateLocation(input);
 
-        return 0;
+        return returnValue;
     }
 
     // unsere Startposition ist (0|0|0). Für die x-Achse bedeutet das ganz rechts, y-Achse ganz hinten und z-Achse ganz oben
@@ -46,23 +65,23 @@ public class Controle extends Automat {
 
         if (xET != 1) {
             returnVal += Kran.Kran_Bit.X_MOTOR_LINKS.b;
-        }else{
+        } else {
             x = true;
         }
         if (yET != 1) {
             returnVal += Kran.Kran_Bit.Y_MOTOR_ZURUECK.b;
-        }else{
+        } else {
             y = true;
         }
         if (zET != 1) {
             returnVal += Kran.Kran_Bit.Z_MOTOR_HOCH.b;
-        }
-        else{
+        } else {
             z = true;
         }
 
-        if (x && y && z){
-            isCalibrated = true;
+        if (x && y && z) {
+            kran.setZ(kranArrayList.get(counterList));
+            counterList++;
         }
         return returnVal;
     }
@@ -102,49 +121,43 @@ public class Controle extends Automat {
 
     }
 
-    private int navigate(int xRotations, int yRotations, int zRotations){
+    private int navigate(int xRotations, int yRotations, int zRotations) {
 
         int returnvalue = 0;
 
-        if(xTurns < xRotations){
+        if (xTurns < xRotations) {
             returnvalue = returnvalue | Kran.Kran_Bit.X_MOTOR_LINKS.b;
-        }
-
-        else if(xTurns > xRotations){
+        } else if (xTurns > xRotations) {
             returnvalue = returnvalue | Kran.Kran_Bit.X_MOTOR_RECHTS.b;
         }
 
-        if(yTurns < yRotations){
+        if (yTurns < yRotations) {
             returnvalue = returnvalue | Kran.Kran_Bit.Y_MOTOR_ZURUECK.b;
-        }
-
-        else if(yTurns > yRotations){
+        } else if (yTurns > yRotations) {
             returnvalue = returnvalue | Kran.Kran_Bit.Y_MOTOR_VOR.b;
         }
 
-        if(zTurns < zRotations){
+        if (zTurns < zRotations) {
             returnvalue = returnvalue | Kran.Kran_Bit.Z_MOTOR_RUNTER.b;
-        }
-
-        else if(zTurns > zRotations){
+        } else if (zTurns > zRotations) {
             returnvalue = returnvalue | Kran.Kran_Bit.Z_MOTOR_HOCH.b;
         }
 
-        if(xTurns == xRotations && yTurns == yRotations && zTurns == zRotations){
-            toggleMagnet();
+        if (xTurns == xRotations && yTurns == yRotations && zTurns == zRotations) {
+            kran.setZ(kranArrayList.get(counterList));
+            counterList++;
+            returnvalue = returnvalue | toggleMagnet();
         }
 
-        return  returnvalue;
+        return returnvalue;
     }
 
-    private int toggleMagnet(){
+    private int toggleMagnet() {
 
-        if(Kran.getElektomagnet() == Kran.Elektromagnet_State.Z_ELEKTROMAGNET_AUS){
+        if (Kran.getElektomagnet() == Kran.Elektromagnet_State.Z_ELEKTROMAGNET_AUS) {
             Kran.setElektomagnet(Kran.Elektromagnet_State.Z_ELEKTROMAGNET_AN);
             return Kran.Kran_Bit.ELEKTROMAGNET_AN.b;
-        }
-
-        else{
+        } else {
             Kran.setElektomagnet(Kran.Elektromagnet_State.Z_ELEKTROMAGNET_AUS);
             return Kran.Kran_Bit.ELEKTROMAGNET_AUS.b;
         }

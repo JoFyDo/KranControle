@@ -1,13 +1,16 @@
+import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
+
 public class Kran {
 
     public Kran() {
-        z =  Kran_State.Z0;
+        z =  Kran_State.Z_KALIBRIEREN;
     }
 
     public enum Kran_State {
 
         //X Y Z sind hier keine richtigen Koordinaten, da wir diese noch nicht ermitteln konnten
-        Z0("Ruhezustand",0,0,0),
         Z_KALIBRIEREN("Kran kalibriert sich", 0, 0, 0),
         Z_AUFSAMMELN_LAGER("Block aus Lager aufsammeln", 1,1,1),
         Z_ABSETZEN_BAND("Block auf das Band abgelegt", 1,1,1),
@@ -20,6 +23,7 @@ public class Kran {
         int x;
         int y;
         int z;
+
 
         Kran_State(String s, int x, int y, int z) {
             this.s = s;
@@ -77,5 +81,16 @@ public class Kran {
 
     public static void setElektomagnet(Elektromagnet_State elektomagnett) {
         elektomagnet = elektomagnett;
+    }
+
+    public Kran_State getZ() {
+        return z;
+    }
+
+    public void setZ(Kran_State z) {
+        this.z = z;
+    }
+    public List<Kran_State> getAllStates() {
+        return Arrays.asList(Kran_State.values());
     }
 }
