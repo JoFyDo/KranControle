@@ -1,3 +1,4 @@
+@SuppressWarnings("LanguageDetectionInspection")
 public class Controle extends Automat {
 
     private boolean isCalibrated = false;
@@ -35,35 +36,48 @@ public class Controle extends Automat {
 
     private int setZero(int input) {
 
-
         int returnVal = 0;
-        int xET = input >> 17;
-        int yET = input >> 18;
-        int zET = input >> 20;
+        int xET = input & Kran.Kran_Bit.X_ET.b;
+        int yET = input & Kran.Kran_Bit.Y_ET.b;
+        int zET = input & Kran.Kran_Bit.Z_ET.b;
+        boolean x = false;
+        boolean y = false;
+        boolean z = false;
 
         if (xET != 1) {
             returnVal += Kran.Kran_Bit.X_MOTOR_LINKS.b;
+        }else{
+            x = true;
         }
         if (yET != 1) {
             returnVal += Kran.Kran_Bit.Y_MOTOR_ZURUECK.b;
+        }else{
+            y = true;
         }
         if (zET != 1) {
             returnVal += Kran.Kran_Bit.Z_MOTOR_HOCH.b;
+        }
+        else{
+            z = true;
+        }
+
+        if (x && y && z){
+            isCalibrated = true;
         }
         return returnVal;
     }
 
     private void updateLocation(int input) {
-        int xIni = 0;
-        int yIni = 0;
-        int zIni = 0;
+        int xIni = input & Kran.Kran_Bit.X_INITIATOR.b;
+        int yIni = input & Kran.Kran_Bit.Y_INITIATOR.b;
+        int zIni = input & Kran.Kran_Bit.Z_INITIATOR.b;
 
-        int xMotorR = 0;
-        int xMotorL = 0;
-        int yMotorV = 0;
-        int yMotorZ = 0;
-        int zMotorH = 0;
-        int zMotorR = 0;
+        int xMotorR = input & Kran.Kran_Bit.X_MOTOR_RECHTS.b;
+        int xMotorL = input & Kran.Kran_Bit.X_MOTOR_LINKS.b;
+        int yMotorV = input & Kran.Kran_Bit.Y_MOTOR_VOR.b;
+        int yMotorZ = input & Kran.Kran_Bit.Y_MOTOR_ZURUECK.b;
+        int zMotorH = input & Kran.Kran_Bit.Z_MOTOR_HOCH.b;
+        int zMotorR = input & Kran.Kran_Bit.Z_MOTOR_RUNTER.b;
 
         if (xIni != xIniOld && xMotorR == 1) {
             xTurns--;
@@ -124,13 +138,15 @@ public class Controle extends Automat {
     }
 
     private int toggleMagnet(){
-        int deinenum = 0; //placeholder - entfernen später gegen enum
-        if(deinenum == 0){
-            return deinenum;//placeholder für das enum welches für das anschalten des Magneten da ist
+
+        if(Kran.getElektomagnet() == Kran.Elektromagnet_State.Z_ELEKTROMAGNET_AUS){
+            Kran.setElektomagnet(Kran.Elektromagnet_State.Z_ELEKTROMAGNET_AN);
+            return Kran.Kran_Bit.ELEKTROMAGNET_AN.b;
         }
 
         else{
-            return deinenum;//placeholder für das enum welches für das ausschalten des Magneten da ist
+            Kran.setElektomagnet(Kran.Elektromagnet_State.Z_ELEKTROMAGNET_AUS);
+            return Kran.Kran_Bit.ELEKTROMAGNET_AUS.b;
         }
     }
 
