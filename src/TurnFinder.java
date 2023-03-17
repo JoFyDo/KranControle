@@ -17,7 +17,6 @@ public class TurnFinder extends Automat {
     private int xIniOld = 0;
     private int yIniOld = 0;
     private int zIniOld = 0;
-    boolean axis = false;
 
     /**
      * The constructor of the abstract class Automat
