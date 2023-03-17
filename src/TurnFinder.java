@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Scanner;
 
 //Diese Klasse dient dazu, die Koordinaten der einzelnen Punkte zu finden
@@ -16,6 +17,7 @@ public class TurnFinder extends Automat {
     private int xIniOld = 0;
     private int yIniOld = 0;
     private int zIniOld = 0;
+    boolean axis = false;
 
     /**
      * The constructor of the abstract class Automat
@@ -26,29 +28,35 @@ public class TurnFinder extends Automat {
     public TurnFinder(int inputMask, int outputMask) {
         super(inputMask, outputMask);
         s = new Scanner(System.in);
+
+        Thread userInputThread = new Thread(() -> {
+            while (true) {
+                String str = s.nextLine();
+                if (Objects.equals(str, "\n")) {
+                    move = false;
+                    x = false;
+                    y = false;
+                    z = false;
+                    System.out.println("X Achse:" + xTurns);
+                    System.out.println("Y Achse:" + yTurns);
+                    System.out.println("Z Achse:" + zTurns);
+                } else if (str.toUpperCase() == "X") {
+                    x = true;
+                    move = true;
+                } else if (str.toUpperCase() == "Y") {
+                    y = true;
+                    move = true;
+                } else if (str.toUpperCase() == "Z") {
+                    z = true;
+                    move = true;
+                }
+            }
+        });
+        userInputThread.start();
     }
 
     @Override
     public int transition(int input) {
-        String str = s.nextLine();
-        if (str == "\n") {
-            move = false;
-            x = false;
-            y = false;
-            z = false;
-            System.out.println("X Achse:" + xTurns);
-            System.out.println("Y Achse:" + yTurns);
-            System.out.println("Z Achse:" + zTurns);
-        } else if (str.toUpperCase() == "X") {
-            x = true;
-            move = true;
-        } else if (str.toUpperCase() == "Y") {
-            y = true;
-            move = true;
-        } else if (str.toUpperCase() == "Z") {
-            z = true;
-            move = true;
-        }
 
         if (!isZero) setZero(input);
 
