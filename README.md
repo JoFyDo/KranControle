@@ -13,12 +13,12 @@ Code: 10%<br>
 Automat + Dokumentation verstehen: 1/3<br>
 
 Aaron:<br>
-Code: 25%<br>
+Code: 30%<br>
 Automat + Dokumentation verstehen: 1/3<br>
 
 Jonas:<br>
 Zustandsdiagramm: 10%<br>
-Code: 65%<br>
+Code: 60%<br>
 Automat + Dokumentation verstehen: 1/3<br>
 Mit ihnen den Automaten repariert ;)
   

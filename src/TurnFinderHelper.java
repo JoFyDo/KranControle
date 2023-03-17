@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 //Diese Klasse dient dazu, die Koordinaten der einzelnen Punkte zu finden
 //Da wir mit den Turns der scheiben arbeiten müssen wir diese erst herausfinden. Dies geschieht mit dieser Klasse
-public class TurnFinder extends Automat {
+public class TurnFinderHelper extends Automat {
 
     private int xTurns;
     private int yTurns;
@@ -24,7 +24,7 @@ public class TurnFinder extends Automat {
      * @param inputMask  The mask that is used to filter the sensor values
      * @param outputMask The mask that is used to filter the aktuator values
      */
-    public TurnFinder(int inputMask, int outputMask) {
+    public TurnFinderHelper(int inputMask, int outputMask) {
         super(inputMask, outputMask);
         s = new Scanner(System.in);
 
