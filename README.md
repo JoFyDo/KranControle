@@ -7,7 +7,7 @@ Da das Testen mit dem physikalischen Kran eher ausgefallen ist, ist dies nur rei
 
 Die Klasse Kran hat mehrere Enum Klassen, diese beinhalten States in der der Kran potenziell sein kann. Die Positionsstates haben zusätzlich Koordinaten, zu denen der Kran fahren muss. Zudem sind dort auch unsere Bit Masken gespeichert, die wir benötigen, um die richtigen Motoren anzusteuern oder Sensoren auszulesen. So müssen wir diese nur einmal deklarieren und die Bits nicht jedes einzelne Mal shiften<br>
 
-Die Klasse Controle extends die Klasse Automat. Sie ist das Brain hinter dem Kran. Die Enums sind in einer Liste gespeichert. Durch diese läuft das Programm durch und führt alle States des Kran aus. So haben wir eine geregelte Abfolge. SetZero kalibriert den Kran zu seinem 0 Punkt und baut unser Koordiantensystem auf. UpdateLocation updated die Koordinaten. Navigate bekommt Koordinaten übergeben, zu dem der Kran fahren muss. ToggleMagnet schaltet den Magnet ein oder aus.<br>
+Die Klasse Controle extends die Klasse Automat. Sie ist das Brain hinter dem Kran. Die Enums sind in einer Liste gespeichert. Durch diese läuft das Programm durch und führt alle States des Kran aus. So haben wir eine geregelte Abfolge. SetZero kalibriert den Kran zu seinem 0 Punkt und darauf baut unser Koordiantensystem auf. UpdateLocation updated die Koordinaten. Navigate bekommt Koordinaten übergeben, zu dem der Kran fahren muss. ToggleMagnet schaltet den Magnet ein oder aus.<br>
 
 Die Klasse TurnFinderHelp hilft uns einmalig die Koordinaten zu bestimmen zu dem der Kran sich bewegen muss.<br>
 
