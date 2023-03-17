@@ -5,9 +5,9 @@ public class Controle extends Automat {
     private int xTurns;
     private int yTurns;
     private int zTurns;
-    private int xIniOld;
-    private int yIniOld;
-    private int zIniOld;
+    private int xIniOld = 0;
+    private int yIniOld = 0;
+    private int zIniOld = 0;
 
 
     /**
